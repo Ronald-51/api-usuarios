@@ -10,8 +10,8 @@ import { errorHandler } from './middlewares/errorHandler.js';
 
 const app = express();
 
-// TODO 1: confiar en los 2 saltos de proxy de Render (Cloudflare + balanceador)
-app.set('trust proxy', 2);
+// Confiar en la cadena completa de proxies de Cloudflare + Render
+app.set('trust proxy', 3);
 
 // TODO 2: activar helmet()
 app.use(helmet());
@@ -35,10 +35,16 @@ app.use(
 // TODO 4: express.json con límite de 10kb
 app.use(express.json({ limit: '10kb' }));
 
-// Salud ANTES del limitador
+// Salud ANTES del limitador (permite confirmar versión e IP detectada)
 app.get('/api/salud', async (req, res) => {
   const { rows } = await pool.query('SELECT now() AS hora');
-  res.json({ estado: 'ok', version: '1.0.1', entorno: config.entorno, hora: rows[0].hora });
+  res.json({
+    estado: 'ok',
+    version: '1.0.2',
+    ip: req.ip,
+    entorno: config.entorno,
+    hora: rows[0].hora,
+  });
 });
 
 // TODO 5: limitador general para /api
