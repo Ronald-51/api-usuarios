@@ -1,0 +1,17 @@
+{
+  "name": "api-usuarios",
+  "version": "1.0.0",
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "dev": "node --watch --env-file=.env src/server.js",
+    "start": "node src/server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.1.0",
+    "express-rate-limit": "^8.7.5",
+    "helmet": "^8.3.0",
+    "pg": "^8.13.0"
+  }
+}
