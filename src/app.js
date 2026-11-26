@@ -10,8 +10,8 @@ import { errorHandler } from './middlewares/errorHandler.js';
 
 const app = express();
 
-// TODO 1: confiar en el primer proxy
-app.set('trust proxy', 1);
+// TODO 1: confiar en los 2 saltos de proxy de Render (Cloudflare + balanceador)
+app.set('trust proxy', 2);
 
 // TODO 2: activar helmet()
 app.use(helmet());
