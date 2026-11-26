@@ -38,7 +38,7 @@ app.use(express.json({ limit: '10kb' }));
 // Salud ANTES del limitador
 app.get('/api/salud', async (req, res) => {
   const { rows } = await pool.query('SELECT now() AS hora');
-  res.json({ estado: 'ok', entorno: config.entorno, hora: rows[0].hora });
+  res.json({ estado: 'ok', version: '1.0.1', entorno: config.entorno, hora: rows[0].hora });
 });
 
 // TODO 5: limitador general para /api
